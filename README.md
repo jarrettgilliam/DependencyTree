@@ -26,7 +26,7 @@ DependencyTree is a command-line tool for analyzing and visualizing the dependen
 Run the tool with the required options:
 
 ```sh
-dotnet run --project DependencyTree -- -p <assembly-path> [-s <starts-with>] [-f <output-format>]
+DependencyTree -p <assembly-path> [-s <starts-with>] [-f <output-format>]
 ```
 
 ## Options
