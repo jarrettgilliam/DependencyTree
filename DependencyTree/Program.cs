@@ -20,7 +20,7 @@ internal class Program
         try
         {
             AssemblyReferenceInfo rootAssembly =
-                GetReferencesInfo(options.AssemblyPath, options) ??
+                GetReferenceInfo(options.AssemblyPath, options) ??
                 throw new InvalidOperationException("Root assembly not found.");
 
             if (options.OutputFormat == OutputFormat.Text)
@@ -44,7 +44,7 @@ internal class Program
     }
 
     [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "This function uses reflection, but not on itself.")]
-    private static AssemblyReferenceInfo? GetReferencesInfo(string assemblyPath, Options options)
+    private static AssemblyReferenceInfo? GetReferenceInfo(string assemblyPath, Options options)
     {
         if (!File.Exists(assemblyPath))
         {
@@ -72,7 +72,7 @@ internal class Program
             }
 
             assemblyInfo.References.Add(
-                GetReferencesInfo(Path.Combine(assemblyDirectory, $"{assemblyName.Name}.dll"), options) ??
+                GetReferenceInfo(Path.Combine(assemblyDirectory, $"{assemblyName.Name}.dll"), options) ??
                 new AssemblyReferenceInfo { Name = assemblyName.Name ?? throw new InvalidOperationException("Assembly name not found.") });
         }
 
@@ -93,13 +93,13 @@ internal class Program
         List<string> output = new();
 
         output.Add("digraph G {");
-        PrintDOTEntries(rootAssembly, output);
+        AddDOTEntries(rootAssembly, output);
         output.Add("}");
 
         output.ForEach(Console.WriteLine);
     }
 
-    private static void PrintDOTEntries(AssemblyReferenceInfo assemblyInfo, List<string> output)
+    private static void AddDOTEntries(AssemblyReferenceInfo assemblyInfo, List<string> output)
     {
         foreach (AssemblyReferenceInfo reference in assemblyInfo.References)
         {
@@ -110,7 +110,7 @@ internal class Program
                 output.Add(line);
             }
 
-            PrintDOTEntries(reference, output);
+            AddDOTEntries(reference, output);
         }
     }
 }
