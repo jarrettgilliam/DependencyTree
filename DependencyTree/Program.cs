@@ -71,18 +71,9 @@ internal class Program
                 continue;
             }
 
-            if (GetReferencesInfo(Path.Combine(assemblyDirectory, $"{assemblyName.Name}.dll"), options) is { } ari)
-            {
-                assemblyInfo.References.Add(ari);
-            }
-            else
-            {
-                assemblyInfo.References.Add(
-                    new AssemblyReferenceInfo
-                    {
-                        Name = assemblyName.Name ?? throw new InvalidOperationException("Assembly name not found.")
-                    });
-            }
+            assemblyInfo.References.Add(
+                GetReferencesInfo(Path.Combine(assemblyDirectory, $"{assemblyName.Name}.dll"), options) ??
+                new AssemblyReferenceInfo { Name = assemblyName.Name ?? throw new InvalidOperationException("Assembly name not found.") });
         }
 
         return assemblyInfo;
