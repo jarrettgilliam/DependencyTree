@@ -2,7 +2,7 @@
 
 DependencyTree is a command-line tool for analyzing and visualizing the dependencies of .NET assemblies. It supports output in both text and DOT formats.
 
-The DOT output can be visualized using tools like [Graphviz Online](https://dreampuf.github.io/GraphvizOnline). The result looking something like this:
+The DOT output can be visualized using tools like [Graphviz Online](https://dreampuf.github.io/GraphvizOnline/#digraph%20G%20%7B%0A%20%20%22DependencyTree%22%20-%3E%20%22System.Runtime%22%3B%0A%20%20%22DependencyTree%22%20-%3E%20%22System.Collections%22%3B%0A%20%20%22DependencyTree%22%20-%3E%20%22CommandLine%22%3B%0A%20%20%22CommandLine%22%20-%3E%20%22netstandard%22%3B%0A%20%20%22DependencyTree%22%20-%3E%20%22System.Console%22%3B%0A%7D%0A). The result looking something like this:
 
 ![DOT Example](dot_example.svg)
 
