@@ -4,7 +4,7 @@ using CommandLine;
 
 internal sealed class Options
 {
-    [Option('p', "assembly-path", HelpText = "The path to the root assembly.")]
+    [Option('p', "assembly-path", HelpText = "The path to the root assembly.", Required = true)]
     required public string AssemblyPath { get; set; }
 
     [Option('s', "starts-with", HelpText = "Only include assemblies whose name starts with this value.")]
