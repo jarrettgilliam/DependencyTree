@@ -3,5 +3,6 @@ namespace DependencyTree.Models;
 public enum OutputFormat
 {
     Text,
-    DOT
+    DOT,
+    Depth
 }

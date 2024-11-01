@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using CommandLine;
 using DependencyTree.Models;
@@ -30,6 +31,10 @@ internal class Program
             else if (options.OutputFormat == OutputFormat.DOT)
             {
                 OutputAsDOT(rootAssembly);
+            }
+            else if (options.OutputFormat == OutputFormat.Depth)
+            {
+                OutputAsDepth(rootAssembly);
             }
             else
             {
@@ -111,6 +116,15 @@ internal class Program
             }
 
             AddDOTEntries(reference, output);
+        }
+    }
+
+    private static void OutputAsDepth(AssemblyReferenceInfo rootAssembly)
+    {
+        foreach (AssemblyReferenceInfo reference in rootAssembly
+                     .Flatten().OrderBy(x => x.DependencyDepth).ThenBy(x => x.Name).Distinct())
+        {
+            Console.WriteLine($"{reference.DependencyDepth} - {reference.Name}");
         }
     }
 }
